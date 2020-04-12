@@ -1,8 +1,8 @@
 import random
 from matplotlib import pyplot as plt
 import numpy as np
-#This is the new branch
-def neighbor_for_nstate(nstate):
+
+def neighbor_for_nstate(nstate):  # The variable 'nstate' defines the number of state
     neighborhoods = []
     for i in range(nstate):
         for j in range(nstate):
@@ -11,7 +11,7 @@ def neighbor_for_nstate(nstate):
     
 def lookuptable(nstate, rule_number, ifprint=False):
     in_ternary = np.base_repr(rule_number, base=nstate)[::-1]
-    lookup_table ={}
+    lookup_table = {}
     neighborhoods = neighbor_for_nstate(nstate)
     for i in range(nstate**2):
         key = neighborhoods[i]
@@ -24,11 +24,13 @@ def lookuptable(nstate, rule_number, ifprint=False):
         for key, val in lookup_table.items():
             print(key, '-->', val)
     return lookup_table
+
 class ECA(object):
     '''
     Elementary cellular automata simulator.
     '''
-    def __init__(self, nstate, rule_number, initial_condition):
+    def __init__(self, nstate, 
+                 rule_number, initial_condition):
         for i in initial_condition:
             if i not in np.arange(nstate):
                 raise ValueError("incorrect initial condition")
