@@ -2,13 +2,11 @@ import random
 from matplotlib import pyplot as plt
 import numpy as np
 
-def neighbor_for_nstate(state):
-    count = 0
+def neighbor_for_nstate(nstate):
     neighborhoods = []
-    for i in range(state):
-        for j in range(state):
+    for i in range(nstate):
+        for j in range(nstate):
             neighborhoods.append((i,j))
-            count+=1
     return neighborhoods
     
 def lookuptable(state, rule_number, ifprint=False):
@@ -41,7 +39,7 @@ class ECA(object):
         self.state = state
         
         
-    def evolve (self, time_steps, ifplot):
+    def evolve (self, time_steps, print=True):
         for t in range(time_steps):
             new_configuration = []
             for i in range(len(self.initial)):
@@ -54,7 +52,7 @@ class ECA(object):
             self.current_configuration = new_configuration # here we don't want to keep making new copies, so use '='
             # add the new configuration to the spacetime field
             self.spacetime.append(new_configuration)
-        if ifplot == True:
+        if print == True:
             plt.figure(figsize=(10,10))
             plt.imshow(self.spacetime, cmap=plt.cm.ocean, interpolation='nearest')
             plt.show()
