@@ -1,7 +1,7 @@
 import random
 from matplotlib import pyplot as plt
 import numpy as np
-
+#This is the new branch
 def neighbor_for_nstate(nstate):
     neighborhoods = []
     for i in range(nstate):
