@@ -2,18 +2,18 @@ import random
 from matplotlib import pyplot as plt
 import numpy as np
 
-def neighbor_for_nstate(nstate):
+def neighbor_for_nstate(nstate):  # The variable 'nstate' defines the number of state
     neighborhoods = []
     for i in range(nstate):
         for j in range(nstate):
             neighborhoods.append((i,j))
     return neighborhoods
     
-def lookuptable(state, rule_number, ifprint=False):
-    in_ternary = np.base_repr(rule_number, base=state)[::-1]
-    lookup_table ={}
-    neighborhoods = neighbor_for_nstate(state)
-    for i in range(state**2):
+def lookuptable(nstate, rule_number, ifprint=False):
+    in_ternary = np.base_repr(rule_number, base=nstate)[::-1]
+    lookup_table = {}
+    neighborhoods = neighbor_for_nstate(nstate)
+    for i in range(nstate**2):
         key = neighborhoods[i]
         try:
             val = in_ternary[i]
@@ -24,19 +24,21 @@ def lookuptable(state, rule_number, ifprint=False):
         for key, val in lookup_table.items():
             print(key, '-->', val)
     return lookup_table
+
 class ECA(object):
     '''
     Elementary cellular automata simulator.
     '''
-    def __init__(self, state, rule_number, initial_condition):
+    def __init__(self, nstate, 
+                 rule_number, initial_condition):
         for i in initial_condition:
-            if i not in np.arange(state):
+            if i not in np.arange(nstate):
                 raise ValueError("incorrect initial condition")
-        self.lookup_table = lookuptable(state, rule_number)
+        self.lookup_table = lookuptable(nstate, rule_number)
         self.initial = initial_condition
         self.spacetime = [initial_condition]
         self.current_configuration = initial_condition.copy()
-        self.state = state
+        self.nstate = nstate
         
         
     def evolve (self, time_steps, print=True):
