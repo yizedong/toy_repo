@@ -66,7 +66,7 @@ def MCMC(a0, a_var, nstep=500):
     a_t = [a0]
     t = [0]
     for step in np.arange(nstep):
-        a_prime = np.random.normal(_a_t, 0.3, 1)
+        a_prime = np.random.normal(_a_t, a_var, 1)
         prob_ratio = x_prob(x_sample=x_sample, a=a_prime) / x_prob(x_sample=x_sample, a=_a_t)
         A = np.min([1, prob_ratio])
         if A >= np.random.uniform(0, 1):
