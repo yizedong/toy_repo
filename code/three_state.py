@@ -41,7 +41,7 @@ class ECA(object):
         self.nstate = nstate
         
         
-    def evolve (self, time_steps, print=True):
+    def evolve (self, time_steps):
         for t in range(time_steps):
             new_configuration = []
             for i in range(len(self.initial)):
@@ -54,7 +54,20 @@ class ECA(object):
             self.current_configuration = new_configuration # here we don't want to keep making new copies, so use '='
             # add the new configuration to the spacetime field
             self.spacetime.append(new_configuration)
-        if print == True:
-            plt.figure(figsize=(10,10))
-            plt.imshow(self.spacetime, cmap=plt.cm.ocean, interpolation='nearest')
-            plt.show()
+        return self.spacetime
+
+
+length = 20
+time = 20
+rule_number = 38
+state = 3
+initial_condition = []
+for i in range(length):
+    initial_condition.append(random.randint(0,state-1))
+print('initial_condition is: ', initial_condition)
+
+CA_three = ECA(nstate=3, rule_number=38, initial_condition=initial_condition)
+spacetime = CA_three.evolve(20)
+plt.figure(figsize=(10,10))
+plt.imshow(spacetime, cmap=plt.cm.ocean, interpolation='nearest')
+plt.show()
