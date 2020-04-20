@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.stats
 from matplotlib import pyplot as plt
 
 def x_prob(x_sample, a):
